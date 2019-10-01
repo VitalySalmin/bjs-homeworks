@@ -91,8 +91,8 @@ console.log("");
 console.log("");
 
 let cypher = {
-  aaaa: 0,
-  bbbb: 10
+  aaa: 0,
+  bbb: 0
 }
 
 let plainText = new Object();
@@ -107,20 +107,8 @@ function getPersonData(secretData) {
       plainText.lastName = "Родриго";
     } else if (property === "aaa" && secretData[property] === 0) {
       plainText.firstName = "Родриго";
-    } else if(property !== "aaa" && property !== "bbb" && secretData[property] === 0) {
-      console.error("\x1b[31m", "Ошибка дешифровки, полученный ключ не представлен  таблице кодировки (не является ни именем, ни фамилией)");
-      plainText.notDefined = "Родриго";
-    } else if(property !== "aaa" && property !== "bbb" && secretData[property] === 1) {
-      console.error("Ошибка дешифровки, полученный ключ не представлен  таблице кодировки (не является ни именем, ни фамилией)");
-      plainText.notDefined = "Эмильо";
-    } else if(secretData[property] !== 0 && secretData[property] !== 1 && property === "aaa") {
-      console.error("Ошибка дешифровки, полученное значение не представлено в списке имен для дешифровки");
-      plainText.firstName = "notDefined";
-    } else if(secretData[property] !== 0 && secretData[property] !== 1 && property === "bbb") {
-      console.error("Ошибка дешифровки, полученное значение не представлено в списке фамилий для дешифровки");
-      plainText.lastName = "notDefined";
-    }
-    else {
+    } else {
+      plainText.unknown = "unknown";
       console.error("Не могу расшифровать,т.к. символы во входном объекте не предствлены в таблице кодировки.")
     }
   }
