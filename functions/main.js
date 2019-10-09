@@ -58,8 +58,12 @@ function getAverage(data) {
   let sum = 0;
   for(let prop in data) {
     let value = data[prop];
-    sum += parseInt (value, 10);
+    if (typeof value !== 'number') {
+      sum += parseInt (value, 10);
+    } else {
+      sum += value;
     }
+  }
   let average =  sum/data.length
   return average; 	
 }
@@ -76,12 +80,10 @@ function getAverageScore(data) {
       let val = subjectPlusMark[key];
       averageForAll.push(val);
     }
-    let total = 0;
-    for(let i = 0;  i < averageForAll.length; i++) {
-      total += averageForAll[i];
-    }
-    let totalAvg = total/averageForAll.length;
-    subjectPlusMark.average = totalAvg;
+    console.log(averageForAll);
+    let avgTotal = getAverage(averageForAll);
+    console.log(avgTotal);
+    subjectPlusMark.average = avgTotal;
     console.log(subjectPlusMark);    
 }
  
