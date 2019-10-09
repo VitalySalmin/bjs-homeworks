@@ -54,21 +54,24 @@ let data = {
   physics : [2, 2, 3, 2, 4]
 };
 
-function getAverageScore() {
+function getAverage(data) {
+  let sum = 0;
+  for(let prop in data) {
+    let value = data[prop];
+    sum += parseInt (value, 10);
+    }
+  let average =  sum/data.length
+  return average; 	
+}
+
+function getAverageScore(data) {
   let averageForAll = [];
   for(let prop in data){
-    let sum = 0;
     let value = data[prop];
-    for(let i = 0;  i < value.length; i++) {
-    sum += parseInt ( value[i], 10);  
+    let avg = getAverage(value); 
+    subjectPlusMark[prop] = avg; 
     }
-
-    function getAverage(){
-    return  sum/value.length
-    }
-    let avg = getAverage();
-    subjectPlusMark[prop] = avg;   
-  } 
+    
     for(let key in subjectPlusMark){
       let val = subjectPlusMark[key];
       averageForAll.push(val);
@@ -82,7 +85,7 @@ function getAverageScore() {
     console.log(subjectPlusMark);    
 }
  
-getAverageScore(); 
+getAverageScore(data); 
 
 
 //TASK 3
