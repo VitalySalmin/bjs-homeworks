@@ -14,14 +14,14 @@ class Weapon {
       this.attack = this.attack / 2;  
       }
       this.durability = this.durability - damage;
-      let hit = new Audio("https//s1download-universal-soundbank.com/wav/1433.wav");
-      hit.play();
+      //let hit = new Audio("https//s1download-universal-soundbank.com/wav/1433.wav");
+     // hit.play();
     }
     if (this.durability <= 0) {
       this.attack = 0;
       this.durability = 0 
-      let swordBreaks = new Audio("https://www.sfu.ca/~johannac/IAT202 Exercise3/metal 2 STE-018.wav");
-      swordBreaks.play();
+     // let swordBreaks = new Audio("https://www.sfu.ca/~johannac/IAT202 Exercise3/metal 2 STE-018.wav");
+     // swordBreaks.play();
     }
   }
   getDamage() {
