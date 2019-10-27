@@ -1,33 +1,38 @@
+const checkIfBroken = "isBroken";
 class Weapon {
   constructor(name, attack, durability, range) {
-   this.name = name;
-   this.attack = attack;
-   this.durability = durability;
-   this.range = range; 
+    this.name = name;
+    this.attack = attack;
+    this.durability = durability;
+    this.range = range; 
+    this.durabilityOnStart = durability;
   }
   
   takeDamage(damage) {
     if (this.durability <= 0) {
       console.log("durability is already 0");
     } else {
-      if (((this.durability - damage)/this.durability)<= 30) {
-      this.attack = this.attack / 2;  
-      }
       this.durability = this.durability - damage;
       //let hit = new Audio("https//s1download-universal-soundbank.com/wav/1433.wav");
-     // hit.play();
+      //hit.play();
+      console.log(`damage taken:  ${damage}`);
     }
     if (this.durability <= 0) {
       this.attack = 0;
-      this.durability = 0 
-     // let swordBreaks = new Audio("https://www.sfu.ca/~johannac/IAT202 Exercise3/metal 2 STE-018.wav");
-     // swordBreaks.play();
+      this.durability = 0 /*чтобы избежать отрицательных значений у прочности - "Первое задание:
+takeDamage. проверьте условия метода. У вас два одинаковых условия if (this.durability <= 0)" я сделал первое для того, чтобы посмотреть прочность до того как отнять от нее повреждением, на случай если она уже ноль (или отриц каким-то обр), второе условие соотв. после того как от прочности отнимут повреждением, чтобы проверить стала ли она отриц, чтобы ее сделать нулевой если да. Я могу поместить это условие внутрь else или же убрать вовсе если это лишняя проверка (до поврждения которая)*/
+      //let swordBreaks = new Audio("https://www.sfu.ca/~johannac/IAT202 Exercise3/metal 2 STE-018.wav");
+      //swordBreaks.play();
+      console.log("durability of the weapon is now 0, it can not take any more damage or cause damage");
     }
   }
   getDamage() {
-  return this.attack;
+  if (((this.durability/this.durabilityOnStart)*100) < 30){return this.attack/2;
+  } else {
+    return this.attack;
   }
-  isBroken() {
+  }
+  [checkIfBroken]() {
     if (this.durability === 0) {
       return true;
     } else {
@@ -36,14 +41,21 @@ class Weapon {
   }
 }
 
+
 const sword = new Weapon('Меч', 25, 500, 1);
 
-//sword.takeDamage(11);
+console.log(`durability: ${sword.durability}`);
+console.log(`durabilityOnStart: ${sword.durability}`);
 
-sword.takeDamage(9);
-console.log(sword.durability);
-console.log(sword.getDamage())
-console.log(sword.isBroken());
+sword.takeDamage(300);
+console.log(`durability: ${sword.durability}`);console.log(`damage: ${sword.getDamage()}`);
+sword.takeDamage(51);
+console.log(`durability: ${sword.durability}`);console.log(`damage: ${sword.getDamage()}`);
+console.log(`broken: ${sword.isBroken()}`);
+sword.takeDamage(149);
+console.log(`durability: ${sword.durability}`);console.log(`damage: ${sword.getDamage()}`);
+console.log(`broken: ${sword.isBroken()}`);
+sword.takeDamage(1);
 
 const ax = Object.assign({},sword);
 ax.name = 'Секира';
@@ -67,12 +79,18 @@ stormStick.range = 3;
 
 
 // TASK 2
+
+/* "Во втором задании оружие вы создаёте не верно" - не особо помогло понять, как сделать так, чтобы было верно. По тз классы обычного оружия должны наследоваться от Weapon  и улучшенное оружие от обычного. Я так понял это и есть "extends" +  я столкнулся еще и с проблемой теперь после того как я добавил  durabilityOnStart (она, наверное и возникла из-за того, что я делаю наследование классов неправильно  тут) - это свойство будто вообще не наследуется если в классе я прописываю значения для др  свойств(а как иначе если подклассы оружий по тз должны содержать в себе значения для будущих их экземпляров. Пожалуйста, дайте хотя бы маленький намек на то, как сделать наследование верно тут. */
+class testClass extends Weapon {
+
+}
+console.log(new testClass())
 class swordClass extends Weapon{
   name = 'Меч'
   attack = 25
   durability = 500
   range = 1
-};
+}
 
 class bowClass extends Weapon{
   name = 'Лук'
@@ -86,21 +104,21 @@ class armClass extends Weapon{
   attack = 1
   durability = Infinity
   range = 1
-};
+}
 
 class knifeClass extends Weapon{
   name = 'Нож'
   attack = 5
   durability = 300
   range = 1
-};
+}
 
 class stickClass extends Weapon{
   name = 'Посох'
   attack = 8
   durability = 300
   range = 2
-};
+}
 
 
 console.log(new bowClass())
@@ -114,13 +132,13 @@ class longBowClass extends bowClass {
 console.log(new longBowClass())
 
 class stormStickClass extends stickClass {
-  name = 'Посох бури';
-  attack = 10;
-  range = 3; 
+  name = 'Посох бури'
+  attack = 10
+  range = 3
 }
 
 class axClass extends swordClass {
-  name = 'Посох бури';
-  attack = 10;
-  range = 3; 
+  name = 'Посох бури'
+  attack = 10
+  range = 3
 }
