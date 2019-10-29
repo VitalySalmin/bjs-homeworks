@@ -29,7 +29,7 @@ limit = 2;
 let results = [];// я пробовал определить массив этот внутри функции  memorize. Если он не в глобальной обл, то вообще не работает. Я пробовал сделать обл видимости для него глобальной, например определеив его через window.results,но получал  ошибки (например когда к нему обр функция compareArrays, пишет, что не может вызвать метод  some   для него т.к. Undefined)
 let memorize = (fn, limitation, arrayForFunc) => {
   fn(arrayForFunc, limitation);
-  let results = [];
+  //let results = [];
 }
 
 let sum = (arrayToCalculate) => {
